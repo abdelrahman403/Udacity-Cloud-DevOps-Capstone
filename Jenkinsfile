@@ -61,7 +61,7 @@ pipeline {
 //            }
 //        }
         
-        stage('Deploy blue container'){
+        stage('Deploy green container'){
             steps {
                 withAWS(region:'us-east-2', credentials:'aws-cred'){
                     sh "kubectl apply -f k8s/green-dep.yaml"
