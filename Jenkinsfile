@@ -70,13 +70,13 @@ pipeline {
         }
 
         stage('Create the service in the cluster, redirect to blue') {
-            steps {
-                kubernetesDeploy(
-                    kubeconfigId: 'kubeconfig',
-                    configs: 'k8s/blue-svc.yaml',
-                    enableConfigSubstitution: true
-                )
-            }
+			steps {
+				withAWS(region:'us-east-2', credentials:'aws-cred') {
+					sh '''
+						kubectl apply -f k8s/blue-svc.yaml
+					'''
+				}
+			}
 		}
 
         stage('Wait user approve') {
@@ -87,11 +87,11 @@ pipeline {
 
         stage('Create the service in the cluster, redirect to green') {
             steps {
-                kubernetesDeploy(
-                    kubeconfigId: 'kubeconfig',
-                    configs: 'k8s/green-svc.yaml',
-                    enableConfigSubstitution: true
-                )
+                withAWS(region:'us-east-2', credentials:'aws-cred') {
+					sh '''
+						kubectl apply -f k8s/green-svc.yaml
+					'''
+				}
             }
         }
 
