@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: blue
-        image: abdelrahman16/capstone
+        image: $DOCKER_IMAGE_NAME:$BUILD_NUMBER
         ports:
         - name: http-server
           containerPort: 80
