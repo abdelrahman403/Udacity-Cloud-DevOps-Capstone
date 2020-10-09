@@ -1,0 +1,21 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: EKS-capstone-cluster
+  region: us-east-2
+
+nodeGroups:
+  - name: ng-capstone-workers
+    instanceType: t2.small
+    desiredCapacity: 2
+    minSize: 1
+    maxSize: 3
+    tags:
+      # EC2 tags required for cluster-autoscaler auto-discovery
+      k8s.io/cluster-autoscaler/enabled: "true"
+      k8s.io/cluster-autoscaler/EKS-course-cluster: "owned"
+    labels:
+      autoscaling: enabled
+      env: prod
+    
