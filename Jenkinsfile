@@ -42,7 +42,7 @@ pipeline {
 //                )
 //            }
 //        }
-
+ 
         stage('blue Deployment'){
             steps {
                 withAWS(region:'us-east-2', credentials:'aws-cred'){
