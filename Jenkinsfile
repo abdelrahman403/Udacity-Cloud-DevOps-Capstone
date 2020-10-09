@@ -43,7 +43,7 @@ pipeline {
 //            }
 //        }
  
-        stage('blue Deployment'){
+        stage('Deploy blue container'){
             steps {
                 withAWS(region:'us-east-2', credentials:'aws-cred'){
                     sh "kubectl apply -f k8s/blue-dep.yaml"
@@ -51,13 +51,21 @@ pipeline {
             }
         }
 
-        stage('Deploy green container') {
+//        stage('Deploy green container') {
+//            steps {
+//                kubernetesDeploy(
+//                    kubeconfigId: 'kubeconfig',
+//                    configs: 'k8s/green-dep.yaml',
+//                    enableConfigSubstitution: true
+//                )
+//            }
+//        }
+        
+        stage('Deploy blue container'){
             steps {
-                kubernetesDeploy(
-                    kubeconfigId: 'kubeconfig',
-                    configs: 'k8s/green-dep.yaml',
-                    enableConfigSubstitution: true
-                )
+                withAWS(region:'us-east-2', credentials:'aws-cred'){
+                    sh "kubectl apply -f k8s/green-dep.yaml"
+                }
             }
         }
 
