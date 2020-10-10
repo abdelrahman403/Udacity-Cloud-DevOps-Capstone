@@ -166,6 +166,8 @@ eksctl create cluster -f eks-cluster/eks-capstone-cluster.yaml
 eksctl get cluster --region us-east-2
 ```
 
+<hr>
+
 ### CI/CD Pipeline
 
 Steps:
